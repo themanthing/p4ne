@@ -13,7 +13,7 @@ class IPv4RandomNetwork(IPv4Network):
       return self.is_global
 
     def key_value(self):
-      return int(self.network_address), int(self.netmask) # (3)
+      return int(self.netmask)*2**32 + int(self.network_address) # (3)
 
 net_list = []
 
@@ -24,8 +24,11 @@ while len(net_list) < 20:
 
 # net_list
 
+# def value_ip(net):
+#   return int(net.netmask)*2**32 + int(net.network_address)
+
 def value_ip(net):
-  return int(net.netmask)*2**32 + int(net.network_address)
+  return net.key_value()
 
 sorted_list = sorted(net_list, key=value_ip)      # возвращает новый отсортированный список. передаем функцию сортировки в качестве параметра! функци, которая м.б. предоставлена чтобы кастомизировать порядок сортировки!
 
